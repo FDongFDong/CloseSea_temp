@@ -1,15 +1,12 @@
-import About from "./pages/About";
-import Navigation from "./components/Navigation";
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Stats from "./pages/Stats";
-import Explore from "./pages/Explore";
-import Create from "./pages/Create";
-import Wallet from "./pages/Wallet";
-import Resources from "./pages/Resources";
-import erc721Abi from "./erc721Abi";
-import TokenList from "./pages/TokenList";
+import About from './pages/About';
+import Navigation from './components/Navigation';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Stats from './pages/Stats';
+import Explore from './pages/Explore';
+import Create from './pages/Create';
+import Wallet from './pages/Wallet';
+import Resources from './pages/Resources';
 
 function App() {
   return (

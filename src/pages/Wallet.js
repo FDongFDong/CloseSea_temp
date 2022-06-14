@@ -1,17 +1,17 @@
-import React from "react";
-import Web3 from "web3";
-import erc721Abi from "../erc721Abi";
-import TokenList from "./TokenList";
-import { useState, useEffect } from "react";
+import React from 'react';
+import Web3 from 'web3';
+import erc721Abi from '../components/erc721Abi';
+import TokenList from './TokenList';
+import { useState, useEffect } from 'react';
 
 const Wallet = () => {
-  const [newErc721addr, setNewErc721Addr] = useState();
-  const [account, setAccount] = useState("");
+  const [newErc721addr, setNewErc721Addr] = useState('');
+  const [account, setAccount] = useState('');
   const [erc721list, setErc721list] = useState([]); // 자신의 NFT 정보를 저장할 토큰
 
   const [web3, setWeb3] = useState();
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
+    if (typeof window.ethereum !== 'undefined') {
       // window.ethereum이 있다면
       try {
         const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
@@ -24,14 +24,22 @@ const Wallet = () => {
 
   const connectWallet = async () => {
     let accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
+      method: 'eth_requestAccounts',
     });
 
     setAccount(accounts[0]);
   };
-
+  const inputAddr = (e) => {
+    console.log('hihi');
+    setNewErc721Addr(e.target.value);
+  };
   const addNewErc721Token = async () => {
-    const tokenContract = await new web3.eth.Contract(erc721Abi, newErc721addr);
+    console.log(`Address : \n${newErc721addr}`);
+    console.log(erc721Abi);
+    const tokenContract = await new web3.eth.Contract(erc721Abi, newErc721addr); // 컨트랙트의 ABI와 주소로 *컨트랙트 객체 생성*
+    console.log(`setNewErc721Addr : ${setNewErc721Addr}`);
+    console.log(`tokenContract : \n ${tokenContract}`);
+
     const name = await tokenContract.methods.name().call();
     const symbol = await tokenContract.methods.symbol().call();
     const totalSupply = await tokenContract.methods.totalSupply().call();
@@ -64,14 +72,10 @@ const Wallet = () => {
       <div className="userInfo">주소: {account}</div>
       {/* 연결된 계정 주소를 화면에 출력합니다 */}
       <div className="newErc721">
-        <input
-          type="text"
-          onChange={(e) => {
-            setNewErc721Addr(e.target.value); // 입력받을 때마다 newErc721addr 갱신
-          }}
-        ></input>
+        <input type="text" onChange={inputAddr}></input>
         <button onClick={addNewErc721Token}>add new erc721</button>
       </div>
+      <TokenList erc721list={erc721list} />
     </div>
   );
 };
