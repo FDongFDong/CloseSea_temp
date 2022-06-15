@@ -5,7 +5,7 @@ import TokenList from './TokenList';
 import { useState, useEffect } from 'react';
 
 const Wallet = () => {
-  const [newErc721addr, setNewErc721Addr] = useState('');
+  const [tokenAddress, setNewErc721Addr] = useState('');
   const [account, setAccount] = useState('');
   const [erc721list, setErc721list] = useState([]); // 자신의 NFT 정보를 저장할 토큰
 
@@ -34,9 +34,10 @@ const Wallet = () => {
     setNewErc721Addr(e.target.value);
   };
   const addNewErc721Token = async () => {
-    console.log(`Address : \n${newErc721addr}`);
+    console.log(`Address : \n${tokenAddress}`);
     console.log(erc721Abi);
-    const tokenContract = await new web3.eth.Contract(erc721Abi, newErc721addr); // 컨트랙트의 ABI와 주소로 *컨트랙트 객체 생성*
+
+    const tokenContract = await new web3.eth.Contract(erc721Abi, tokenAddress); // 컨트랙트의 ABI와 주소로 *컨트랙트 객체 생성*
     console.log(`setNewErc721Addr : ${setNewErc721Addr}`);
     console.log(`tokenContract : \n ${tokenContract}`);
 
@@ -53,7 +54,10 @@ const Wallet = () => {
       if (String(tokenOwner).toLowerCase() === account) {
         let tokenURI = await tokenContract.methods.tokenURI(tokenId).call();
         setErc721list((prevState) => {
-          return [...prevState, { name, symbol, tokenId, tokenURI }];
+          return [
+            ...prevState,
+            { name, symbol, tokenId, tokenURI, tokenAddress },
+          ];
         });
       }
     }
@@ -75,7 +79,8 @@ const Wallet = () => {
         <input type="text" onChange={inputAddr}></input>
         <button onClick={addNewErc721Token}>add new erc721</button>
       </div>
-      <TokenList erc721list={erc721list} />
+
+      <TokenList web3={web3} account={account} erc721list={erc721list} />
     </div>
   );
 };

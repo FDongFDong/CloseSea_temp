@@ -1,5 +1,5 @@
 import About from './pages/About';
-import Navigation from './components/Navigation';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import Stats from './pages/Stats';
