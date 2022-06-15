@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineSearch } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
-import "./Nav.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { CgProfile } from 'react-icons/cg';
+import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
+import './Nav.css';
 
 function Nav() {
   return (
@@ -48,7 +48,7 @@ function Nav() {
         <Link to="/create">
           <div className="headerItem">Create</div>
         </Link>
-        <Link to="/profile">
+        <Link to="/about">
           <div className="profileIcon">
             <CgProfile />
             {/* 👆 Opensea 홈페이지와 동일한 프로필 사진 이미지 */}
